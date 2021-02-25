@@ -14,7 +14,7 @@ def vote(request, content_type, object_id, vote, can_vote_test=None,
     if not hasattr(request, 'secretballot_token'):
         raise ImproperlyConfigured('To use secretballot a SecretBallotMiddleware '
                                    'must be installed. (see secretballot/middleware.py)')
-    token = request.secretballot_token
+    token = request.secretballot_token()
 
     if isinstance(content_type, ContentType):
         pass

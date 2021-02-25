@@ -14,7 +14,7 @@ def limit_total_votes(num):
 
     def total_vote_limiter(request, content_type, object_id, vote):
         return Vote.objects.filter(content_type=content_type,
-                                   token=request.secretballot_token).count() < num
+                                   token=request.secretballot_token()).count() < num
     return total_vote_limiter
 
 
@@ -71,7 +71,7 @@ def enable_voting_on(cls, manager_name='objects',
             if not hasattr(request, 'secretballot_token'):
                 raise ImproperlyConfigured('To use secretballot a SecretBallotMiddleware must '
                                            'be installed. (see secretballot/middleware.py)')
-            return self.from_token(request.secretballot_token)
+            return self.from_token(request.secretballot_token())
 
     cls.add_to_class('_default_manager', VotableManager())
     cls.add_to_class(manager_name, VotableManager())

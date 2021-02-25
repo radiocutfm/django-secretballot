@@ -3,7 +3,7 @@ from hashlib import md5
 
 class SecretBallotMiddleware(object):
     def process_request(self, request):
-        request.secretballot_token = self.generate_token(request)
+        request.secretballot_token = lambda: self.generate_token(request)
 
     def generate_token(self, request):
         raise NotImplementedError
